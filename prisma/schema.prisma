@@ -9,16 +9,22 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
 model Product {
-  id        Int      @id @default(autoincrement())
-  name      String
-  price     Float
-  available Boolean  @default(true)
-  createdAT DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id                 Int      @id @default(autoincrement())
+  name               String
+  description        String?
+  price              Float
+  stock              Int      @default(1)
+  available          Boolean  @default(true)
+  createdAT          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+  imageUrl           String   @default("https://media.istockphoto.com/id/1414159406/es/vector/multicolor-abstracto-rojo-naranja-verde-p%C3%BArpura-amarillo-colorido-ondulado-papelcut.jpg?s=612x612&w=0&k=20&c=UNjQErYytEZGkh72OyyN0XvryBi_G7_NUmQGwmK34jg=")
+  categoryId         String   
+  discountPercentage Float?   @default(0.0)
+
   @@index([available])
 }
